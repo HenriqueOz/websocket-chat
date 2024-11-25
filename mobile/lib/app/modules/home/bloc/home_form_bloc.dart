@@ -9,12 +9,17 @@ part 'home_form_state.dart';
 
 class HomeFormBloc extends Bloc<HomeFormEvent, HomeFormState> {
   HomeFormBloc()
-      : super(const HomeFormState(
-          state: HomeFormStatus.data,
-          formStates: [],
-        )) {
+      : super(
+          const HomeFormState(
+            state: HomeFormStatus.data,
+            formStates: [],
+          ),
+        ) {
     on<HomeFormAddFormState>(_addFormState);
     on<HomeFormSubmit>(_submitForm);
+    on<HomeFormAddUserController>(_addUserController);
+    on<HomeFormAddIpController>(_addIpController);
+    on<HomeFormAddPortController>(_addPortController);
   }
   Future<void> _addFormState(HomeFormAddFormState event, Emitter<HomeFormState> emit) async {
     final List<GlobalKey<FormState>> formStates = [...state.formStates];
@@ -33,11 +38,23 @@ class HomeFormBloc extends Bloc<HomeFormEvent, HomeFormState> {
         .toList();
 
     if (validations.contains(false)) {
-      event.onError();
+      event.onError(state);
       emit(state.copyWith(state: HomeFormStatus.invalid));
     } else {
-      event.onSuccess();
+      event.onSuccess(state);
       emit(state.copyWith(state: HomeFormStatus.valid));
     }
+  }
+
+  Future<void> _addUserController(HomeFormAddUserController event, Emitter<HomeFormState> emit) async {
+    emit(state.copyWith(state: HomeFormStatus.data, userTextController: event.controller));
+  }
+
+  FutureOr<void> _addPortController(HomeFormAddPortController event, Emitter<HomeFormState> emit) {
+    emit(state.copyWith(state: HomeFormStatus.data, portTextController: event.controller));
+  }
+
+  FutureOr<void> _addIpController(HomeFormAddIpController event, Emitter<HomeFormState> emit) {
+    emit(state.copyWith(state: HomeFormStatus.data, ipTextController: event.controller));
   }
 }

@@ -7,6 +7,7 @@ class CustomTextFormField extends StatelessWidget {
   final Color focusColor;
   final String hint;
   final String label;
+  final TextEditingController? controller;
   final FloatingLabelBehavior? floatingLabelBehavior;
   final TextInputType? textInputType;
   final List<TextInputFormatter>? inputFormatters;
@@ -14,6 +15,7 @@ class CustomTextFormField extends StatelessWidget {
 
   const CustomTextFormField({
     super.key,
+    this.controller,
     required this.color,
     required this.focusColor,
     required this.hint,
@@ -30,6 +32,7 @@ class CustomTextFormField extends StatelessWidget {
       style: TextStyle(
         color: color,
       ),
+      controller: controller,
       validator: validator,
       inputFormatters: inputFormatters,
       keyboardType: textInputType,

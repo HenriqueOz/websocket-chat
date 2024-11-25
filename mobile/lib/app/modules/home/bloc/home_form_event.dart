@@ -8,9 +8,24 @@ class HomeFormAddFormState extends HomeFormEvent {
   HomeFormAddFormState({required this.formState});
 }
 
+class HomeFormAddUserController extends HomeFormEvent {
+  final TextEditingController controller;
+  HomeFormAddUserController({required this.controller});
+}
+
+class HomeFormAddIpController extends HomeFormEvent {
+  final TextEditingController controller;
+  HomeFormAddIpController({required this.controller});
+}
+
+class HomeFormAddPortController extends HomeFormEvent {
+  final TextEditingController controller;
+  HomeFormAddPortController({required this.controller});
+}
+
 class HomeFormSubmit extends HomeFormEvent {
-  final void Function() onError;
-  final void Function() onSuccess;
+  final void Function(HomeFormState state) onError;
+  final void Function(HomeFormState state) onSuccess;
 
   HomeFormSubmit({
     required this.onError,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +25,8 @@ final class Routes {
           ),
         );
       case (RouteNames.chatPage):
+        final Map<String, dynamic> arguments = settings.arguments as Map<String, dynamic>;
+        log(arguments.toString());
         return MaterialPageRoute(builder: (context) => const ChatPage());
       default:
         return MaterialPageRoute(builder: (context) => const NotFoundPage());

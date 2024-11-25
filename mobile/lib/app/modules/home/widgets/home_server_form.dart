@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:websocket_flutter/app/core/strings/strings.dart';
 import 'package:websocket_flutter/app/core/utils/validator.dart';
 import 'package:websocket_flutter/app/core/widgets/custom_text_form_field.dart';
@@ -8,18 +9,31 @@ import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
 import 'package:websocket_flutter/app/modules/home/bloc/home_form_bloc.dart';
 
 class HomeServerForm extends StatefulWidget {
-  const HomeServerForm({super.key});
+  const HomeServerForm({
+    super.key,
+  });
 
   @override
   State<HomeServerForm> createState() => _HomeServerFormState();
 }
 
 class _HomeServerFormState extends State<HomeServerForm> {
+  final TextEditingController _ipFieldEC = TextEditingController();
+  final TextEditingController _portFieldEC = TextEditingController();
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _ipFieldEC.dispose();
+    _portFieldEC.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
     context.read<HomeFormBloc>().add(HomeFormAddFormState(formState: _formState));
+    context.read<HomeFormBloc>().add(HomeFormAddIpController(controller: _ipFieldEC));
+    context.read<HomeFormBloc>().add(HomeFormAddPortController(controller: _portFieldEC));
     super.initState();
   }
 
@@ -40,6 +54,7 @@ class _HomeServerFormState extends State<HomeServerForm> {
           SizedBox(
             width: context.screenSize.width * .5,
             child: CustomTextFormField(
+              controller: _ipFieldEC,
               label: Strings.homeIpFieldLabel,
               hint: Strings.homeIpFieldHint,
               color: context.colors.onPrimary,
@@ -67,6 +82,7 @@ class _HomeServerFormState extends State<HomeServerForm> {
           SizedBox(
             width: context.screenSize.width * .5,
             child: CustomTextFormField(
+              controller: _portFieldEC,
               label: Strings.homePortFieldLabel,
               hint: Strings.homePortFieldHint,
               color: context.colors.onPrimary,

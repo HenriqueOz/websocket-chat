@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
+import 'package:websocket_flutter/app/core/routes/routes.dart';
 import 'package:websocket_flutter/app/core/strings/strings.dart';
 import 'package:websocket_flutter/app/core/utils/messenger.dart';
 import 'package:websocket_flutter/app/core/widgets/custom_text_form_field.dart';
+import 'package:websocket_flutter/app/data/models/server_address_model.dart';
+import 'package:websocket_flutter/app/data/models/user_model.dart';
 import 'package:websocket_flutter/app/modules/home/bloc/home_form_bloc.dart';
 
 class HomeBottom extends StatefulWidget {
@@ -16,10 +20,18 @@ class HomeBottom extends StatefulWidget {
 
 class _HomeBottomState extends State<HomeBottom> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
+  final TextEditingController _usernameEC = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameEC.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
     context.read<HomeFormBloc>().add(HomeFormAddFormState(formState: _formState));
+    context.read<HomeFormBloc>().add(HomeFormAddUserController(controller: _usernameEC));
     super.initState();
   }
 
@@ -57,6 +69,7 @@ class _HomeBottomState extends State<HomeBottom> {
             key: _formState,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: CustomTextFormField(
+              controller: _usernameEC,
               color: context.colors.onSurface,
               focusColor: context.colors.primary,
               hint: Strings.homeUsernameFieldHint,
@@ -86,18 +99,30 @@ class _HomeBottomState extends State<HomeBottom> {
             onPressed: () {
               final HomeFormBloc bloc = context.read<HomeFormBloc>();
 
-              bloc.add(HomeFormSubmit(
-                onError: () => Messenger.of(context).showSnackbar(
-                  message: Strings.formInvalidForm,
-                  backgroundColor: context.colors.error,
-                  textColor: context.colors.onError,
+              bloc.add(
+                HomeFormSubmit(
+                  onError: (_) => Messenger.of(context).showSnackbar(
+                    message: Strings.formInvalidForm,
+                    backgroundColor: context.colors.error,
+                    textColor: context.colors.onError,
+                  ),
+                  onSuccess: (state) {
+                    Navigator.pushNamed(
+                      context,
+                      RouteNames.chatPage,
+                      arguments: <String, dynamic>{
+                        'user': UserModel(
+                          name: state.userTextController?.text ?? '',
+                        ),
+                        'server': ServerAddressModel(
+                          port: state.portTextController?.value.text ?? '',
+                          ipv4: state.ipTextController?.text ?? '',
+                        ),
+                      },
+                    );
+                  },
                 ),
-                onSuccess: () => Messenger.of(context).showSnackbar(
-                  message: 'Fine',
-                  backgroundColor: context.colors.primary,
-                  textColor: context.colors.onPrimary,
-                ),
-              ));
+              );
             },
             child: const Text(Strings.homeJoinChatButton),
           ),
