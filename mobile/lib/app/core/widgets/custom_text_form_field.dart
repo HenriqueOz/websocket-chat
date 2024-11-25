@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
@@ -12,6 +10,7 @@ class CustomTextFormField extends StatelessWidget {
   final FloatingLabelBehavior? floatingLabelBehavior;
   final TextInputType? textInputType;
   final List<TextInputFormatter>? inputFormatters;
+  final String? Function(String? value)? validator;
 
   const CustomTextFormField({
     super.key,
@@ -19,6 +18,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.focusColor,
     required this.hint,
     required this.label,
+    this.validator,
     this.floatingLabelBehavior = FloatingLabelBehavior.always,
     this.textInputType = TextInputType.multiline,
     this.inputFormatters,
@@ -30,6 +30,7 @@ class CustomTextFormField extends StatelessWidget {
       style: TextStyle(
         color: color,
       ),
+      validator: validator,
       inputFormatters: inputFormatters,
       keyboardType: textInputType,
       onEditingComplete: () {

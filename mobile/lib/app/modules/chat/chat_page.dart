@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:websocket_flutter/app/core/widgets/custom_app_bar.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -6,9 +7,7 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat'),
-      ),
+      appBar: const CustomAppBar(),
       body: Container(),
     );
   }

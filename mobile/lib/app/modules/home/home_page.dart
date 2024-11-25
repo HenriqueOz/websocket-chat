@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
-import 'package:websocket_flutter/app/modules/home/widgets/home_app_bar.dart';
+import 'package:websocket_flutter/app/core/widgets/app_drawer.dart';
+import 'package:websocket_flutter/app/modules/home/widgets/custom_app_bar.dart';
 import 'package:websocket_flutter/app/modules/home/widgets/home_bottom.dart';
-import 'package:websocket_flutter/app/modules/home/widgets/home_drawer.dart';
 import 'package:websocket_flutter/app/modules/home/widgets/home_server_form.dart';
 import 'package:websocket_flutter/app/modules/home/widgets/home_title.dart';
 
@@ -15,8 +15,8 @@ class HomePage extends StatelessWidget {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         backgroundColor: context.colors.primary,
-        appBar: const HomeAppBar(),
-        drawer: const HomeDrawer(),
+        appBar: const CustomAppBar(),
+        drawer: const AppDrawer(),
         body: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(

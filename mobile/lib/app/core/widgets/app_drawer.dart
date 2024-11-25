@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:websocket_flutter/app/core/bloc/app_theme_cubit/app_theme_cubit.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
 import 'package:websocket_flutter/app/core/strings/strings.dart';
-import 'package:websocket_flutter/app/core/widgets/app_theme_selector.dart';
+import 'package:websocket_flutter/app/core/widgets/theme_selector.dart';
 
-class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({
+class AppDrawer extends StatelessWidget {
+  const AppDrawer({
     super.key,
   });
 
@@ -40,7 +40,7 @@ class HomeDrawer extends StatelessWidget {
                 _drawerItem(
                   title: Strings.homeDrawerDarkMode,
                   onTap: () {},
-                  leading: AppThemeSelector(
+                  leading: ThemeSelector(
                     builder: (context, themeMode) {
                       return Switch(
                         value: themeMode == ThemeMode.dark,
