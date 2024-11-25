@@ -1,5 +1,6 @@
 part of 'routes.dart';
 
 final class RouteNames {
-  static const String splashPage = "/";
+  static const String homePage = "/";
+  static const String chatPage = "/chat";
 }

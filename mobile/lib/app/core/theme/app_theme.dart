@@ -15,9 +15,9 @@ class AppTheme {
       scaffoldBackgroundColor: colors.surface,
       textTheme: GoogleFonts.getTextTheme("Poppins"),
       textSelectionTheme: TextSelectionThemeData(
-        cursorColor: colors.tertiary,
-        selectionColor: colors.tertiary,
-        selectionHandleColor: colors.tertiary,
+        cursorColor: Colors.blue.shade600,
+        selectionColor: Colors.blue.shade600,
+        selectionHandleColor: Colors.blue.shade600,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(

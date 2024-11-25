@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -6,6 +9,9 @@ class CustomTextFormField extends StatelessWidget {
   final Color focusColor;
   final String hint;
   final String label;
+  final FloatingLabelBehavior? floatingLabelBehavior;
+  final TextInputType? textInputType;
+  final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextFormField({
     super.key,
@@ -13,16 +19,24 @@ class CustomTextFormField extends StatelessWidget {
     required this.focusColor,
     required this.hint,
     required this.label,
+    this.floatingLabelBehavior = FloatingLabelBehavior.always,
+    this.textInputType = TextInputType.multiline,
+    this.inputFormatters,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       style: TextStyle(
         color: color,
       ),
+      inputFormatters: inputFormatters,
+      keyboardType: textInputType,
+      onEditingComplete: () {
+        FocusScope.of(context).nextFocus();
+      },
       decoration: InputDecoration(
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+        floatingLabelBehavior: floatingLabelBehavior,
         label: Text(label),
         labelStyle: TextStyle(
           color: color,

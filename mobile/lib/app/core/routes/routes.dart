@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:websocket_flutter/app/modules/chat/chat_page.dart';
 import 'package:websocket_flutter/app/modules/home/home_page.dart';
 import 'package:websocket_flutter/app/modules/not_found/not_found_page.dart';
 
@@ -9,8 +10,10 @@ final class Routes {
 
   static Route<dynamic> generateRoutes(RouteSettings settings) {
     switch (settings.name) {
-      case (RouteNames.splashPage):
+      case (RouteNames.homePage):
         return MaterialPageRoute(builder: (context) => const HomePage());
+      case (RouteNames.chatPage):
+        return MaterialPageRoute(builder: (context) => const ChatPage());
       default:
         return MaterialPageRoute(builder: (context) => const NotFoundPage());
     }

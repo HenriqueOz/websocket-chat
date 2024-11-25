@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 extension ContextExt on BuildContext {
@@ -22,8 +20,6 @@ extension ContextExt on BuildContext {
       screenSize.width,
       screenSize.height - mediaQuery.padding.bottom - mediaQuery.padding.top - kToolbarHeight,
     );
-
-    log(mediaQuery.orientation.toString());
 
     if (mediaQuery.orientation == Orientation.landscape) {
       return size.flipped;
