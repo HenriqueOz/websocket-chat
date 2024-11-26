@@ -42,6 +42,7 @@ class HomeFormBloc extends Bloc<HomeFormEvent, HomeFormState> {
       emit(state.copyWith(state: HomeFormStatus.invalid));
     } else {
       event.onSuccess(state);
+
       emit(state.copyWith(state: HomeFormStatus.valid));
     }
   }
