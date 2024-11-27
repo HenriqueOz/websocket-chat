@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:websocket_flutter/app/data/models/message_model.dart';
@@ -33,6 +34,16 @@ class WebsocketClient {
   Stream<MessageModel> get messageStream => messageStreamController.stream;
   Stream<SocketStatus> get statusStream => statusStreamController.stream;
 
+  /* Nota de ódio
+  * Por algum motivo o socket io não instancia um novo server quanto
+  * tu chama o método que de criação de server. Ele busca a instância criada no passado
+  * e muda o endereço dela e etc. Mas, ESSE INFELIZ, não apaga os eventos registrados
+  * no último socket que tu criou, então, se você criar um novo dele e não limpar os listeners
+  * ele duplica eventos
+  *
+  * Morra socket io
+  */
+
   Future<void> connect({
     required final UserModel user,
   }) async {
@@ -43,6 +54,7 @@ class WebsocketClient {
 
     setUpEvents(client!, user);
     client?.connect();
+    log(client?.connected.toString() ?? 'banana');
   }
 
   void setUpEvents(IO.Socket socket, UserModel user) {
@@ -77,6 +89,7 @@ class WebsocketClient {
 
   void disconnect() {
     client?.disconnect();
+    client?.clearListeners();
   }
 
   void addDataToStream<T>(StreamController<T>? streamController, T data) {
