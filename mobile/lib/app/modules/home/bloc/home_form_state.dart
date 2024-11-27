@@ -1,16 +1,31 @@
 part of 'home_form_bloc.dart';
 
-enum FormStatus {
-  valid,
+enum HomeFormStatus {
+  data,
   invalid,
-  empty,
+  valid,
 }
 
-sealed class HomeFormState {}
-
-final class HomeFormData extends HomeFormState {
+class HomeFormState {
+  final HomeFormStatus state;
   final List<GlobalKey<FormState>> formStates;
   final Map<String, TextEditingController> textControllers;
-  final FormStatus formStatus;
-  HomeFormData({required this.formStatus, required this.formStates, required this.textControllers});
+
+  const HomeFormState({
+    required this.state,
+    required this.formStates,
+    required this.textControllers,
+  });
+
+  HomeFormState copyWith({
+    HomeFormStatus? state,
+    List<GlobalKey<FormState>>? formStates,
+    Map<String, TextEditingController>? textControllers,
+  }) {
+    return HomeFormState(
+      state: state ?? this.state,
+      formStates: formStates ?? this.formStates,
+      textControllers: textControllers ?? this.textControllers,
+    );
+  }
 }

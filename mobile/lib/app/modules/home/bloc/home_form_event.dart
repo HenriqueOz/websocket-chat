@@ -19,8 +19,8 @@ class HomeFormAddController extends HomeFormEvent {
 }
 
 class HomeFormSubmit extends HomeFormEvent {
-  final void Function(HomeFormData state) onError;
-  final void Function(HomeFormData state) onSuccess;
+  final void Function(HomeFormState state) onError;
+  final void Function(HomeFormState state) onSuccess;
 
   HomeFormSubmit({
     required this.onError,
