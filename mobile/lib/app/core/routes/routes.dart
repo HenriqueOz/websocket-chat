@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:websocket_flutter/app/data/models/server_address_model.dart';
 import 'package:websocket_flutter/app/data/models/user_model.dart';
 import 'package:websocket_flutter/app/data/websocket/websocket_client.dart';
-import 'package:websocket_flutter/app/modules/chat/bloc/chat_connection_bloc.dart';
+import 'package:websocket_flutter/app/modules/chat/bloc/chat_connection/chat_connection_bloc.dart';
 import 'package:websocket_flutter/app/modules/chat/chat_page.dart';
 import 'package:websocket_flutter/app/modules/home/bloc/home_form_bloc.dart';
 import 'package:websocket_flutter/app/modules/home/home_page.dart';

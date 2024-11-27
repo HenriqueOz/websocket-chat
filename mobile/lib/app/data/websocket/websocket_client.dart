@@ -6,12 +6,22 @@ import 'package:websocket_flutter/app/data/models/message_model.dart';
 import 'package:websocket_flutter/app/data/models/user_model.dart';
 import 'package:websocket_flutter/app/data/websocket/websocket_events.dart';
 
+enum SocketStatus {
+  connected('connected'),
+  disconnected('disconnected'),
+  reconnecting('reconnecting');
+
+  final String status;
+  const SocketStatus(this.status);
+}
+
 class WebsocketClient {
-  StreamController<MessageModel> messageStreamController = StreamController<MessageModel>();
   final String host;
   final String port;
   late String url;
-  late IO.Socket client;
+  IO.Socket? client;
+  final StreamController<MessageModel> messageStreamController = StreamController<MessageModel>();
+  final StreamController<SocketStatus> statusStreamController = StreamController<SocketStatus>();
 
   WebsocketClient({
     required this.host,
@@ -20,31 +30,26 @@ class WebsocketClient {
     url = 'http://$host:$port';
   }
 
-  Future<void> connect({required UserModel user}) async {
+  Stream<MessageModel> get messageStream => messageStreamController.stream;
+  Stream<SocketStatus> get statusStream => statusStreamController.stream;
+
+  Future<void> connect({
+    required final UserModel user,
+  }) async {
     client = IO.io(
       url,
       IO.OptionBuilder().setTransports(['websocket']).build(),
     );
 
-    setUpEvents(client, user);
-  }
-
-  Future<void> disconnect() async {
-    client.disconnect();
-    await messageStreamController.close();
-  }
-
-  Stream<MessageModel>? messageStream() {
-    if (!messageStreamController.isClosed) {
-      return messageStreamController.stream;
-    }
-    return null;
+    setUpEvents(client!, user);
+    client?.connect();
   }
 
   void setUpEvents(IO.Socket socket, UserModel user) {
     socket.on(
       WebsocketEvents.connect.event,
       (data) {
+        addDataToStream(statusStreamController, SocketStatus.connected);
         _sendConnectionMessage(name: user.name);
       },
     );
@@ -52,15 +57,37 @@ class WebsocketClient {
     socket.on(
       WebsocketEvents.message.event,
       (data) {
-        final MessageModel message = MessageModel.fromJson(data);
-        messageStreamController.add(message);
+        print('message event');
+        addDataToStream(messageStreamController, MessageModel.fromJson(data));
+      },
+    );
+
+    socket.onReconnectAttempt(
+      (data) {
+        addDataToStream<SocketStatus>(statusStreamController, SocketStatus.reconnecting);
+      },
+    );
+
+    socket.onDisconnect(
+      (data) {
+        addDataToStream<SocketStatus>(statusStreamController, SocketStatus.disconnected);
       },
     );
   }
 
+  void disconnect() {
+    client?.disconnect();
+  }
+
+  void addDataToStream<T>(StreamController<T>? streamController, T data) {
+    if (streamController != null && !streamController.isClosed) {
+      streamController.add(data);
+    }
+  }
+
   void _sendConnectionMessage({required String name}) {
-    if (client.connected) {
-      client.emit(
+    if (client != null && client!.connected) {
+      client?.emit(
         WebsocketEvents.connectionMessage.event,
         jsonEncode({
           'name': name,

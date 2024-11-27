@@ -6,7 +6,7 @@ enum HomeFormStatus {
   valid,
 }
 
-class HomeFormState {
+class HomeFormState extends Equatable {
   final HomeFormStatus state;
   final List<GlobalKey<FormState>> formStates;
   final Map<String, TextEditingController> textControllers;
@@ -16,6 +16,15 @@ class HomeFormState {
     required this.formStates,
     required this.textControllers,
   });
+
+  HomeFormState updateController(String key, TextEditingController controller) {
+    final Map<String, TextEditingController> updatedControllers = Map<String, TextEditingController>.from(textControllers);
+    updatedControllers[key] = controller;
+
+    return copyWith(
+      textControllers: updatedControllers,
+    );
+  }
 
   HomeFormState copyWith({
     HomeFormStatus? state,
@@ -28,4 +37,7 @@ class HomeFormState {
       textControllers: textControllers ?? this.textControllers,
     );
   }
+
+  @override
+  List<Object?> get props => [state, formStates, textControllers];
 }

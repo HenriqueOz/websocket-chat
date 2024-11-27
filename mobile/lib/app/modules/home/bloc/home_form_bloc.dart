@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:websocket_flutter/app/core/hive/hive_boxes.dart';
@@ -58,23 +58,13 @@ class HomeFormBloc extends Bloc<HomeFormEvent, HomeFormState> {
   }
 
   Future<void> _addController(HomeFormAddController event, Emitter<HomeFormState> emit) async {
-    print(state.textControllers);
-
-    final Map<String, TextEditingController> textControllers = {
-      //...state.textControllers,
-      event.key: event.controller,
-    };
-
     final String? storedValue = await _getStoredValue(key: event.key);
 
     if (storedValue != null) {
-      textControllers[event.key]?.text = storedValue;
+      event.controller.text = storedValue;
     }
 
-    emit(state.copyWith(
-      state: HomeFormStatus.data,
-      textControllers: textControllers,
-    ));
+    emit(state.updateController(event.key, event.controller));
   }
 
   Future<String?> _getStoredValue({required String key}) async {
