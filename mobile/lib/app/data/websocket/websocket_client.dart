@@ -7,7 +7,7 @@ import 'package:websocket_flutter/app/data/models/user_model.dart';
 import 'package:websocket_flutter/app/data/websocket/websocket_events.dart';
 
 class WebsocketClient {
-  StreamController<MessageModel> messageStreamController = StreamController<MessageModel>.broadcast();
+  StreamController<MessageModel> messageStreamController = StreamController<MessageModel>();
   final String host;
   final String port;
   late String url;
@@ -34,8 +34,11 @@ class WebsocketClient {
     await messageStreamController.close();
   }
 
-  Stream<MessageModel> messages() {
-    return messageStreamController.stream;
+  Stream<MessageModel>? messageStream() {
+    if (!messageStreamController.isClosed) {
+      return messageStreamController.stream;
+    }
+    return null;
   }
 
   void setUpEvents(IO.Socket socket, UserModel user) {

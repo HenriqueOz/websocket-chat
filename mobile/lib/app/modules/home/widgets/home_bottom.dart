@@ -31,7 +31,12 @@ class _HomeBottomState extends State<HomeBottom> {
   @override
   void initState() {
     context.read<HomeFormBloc>().add(HomeFormAddFormState(formState: _formState));
-    context.read<HomeFormBloc>().add(HomeFormAddUserController(controller: _usernameEC));
+    context.read<HomeFormBloc>().add(
+          HomeFormAddController(
+            controller: _usernameEC,
+            key: 'user_controller',
+          ),
+        );
     super.initState();
   }
 
@@ -112,11 +117,11 @@ class _HomeBottomState extends State<HomeBottom> {
                       RouteNames.chatPage,
                       arguments: <String, dynamic>{
                         'user': UserModel(
-                          name: state.userTextController?.text ?? '',
+                          name: state.textControllers['user_controller']?.text ?? '',
                         ),
                         'server': ServerAddressModel(
-                          port: state.portTextController?.value.text ?? '',
-                          ipv4: state.ipTextController?.text ?? '',
+                          port: state.textControllers['port_controller']?.text ?? '',
+                          ipv4: state.textControllers['ip_controller']?.text ?? '',
                         ),
                       },
                     );

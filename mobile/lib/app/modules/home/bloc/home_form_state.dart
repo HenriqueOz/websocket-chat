@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'home_form_bloc.dart';
 
 enum HomeFormStatus {
@@ -7,37 +6,26 @@ enum HomeFormStatus {
   valid,
 }
 
-class HomeFormState extends Equatable {
+class HomeFormState {
   final HomeFormStatus state;
   final List<GlobalKey<FormState>> formStates;
-  final TextEditingController? userTextController;
-  final TextEditingController? ipTextController;
-  final TextEditingController? portTextController;
+  final Map<String, TextEditingController> textControllers;
 
   const HomeFormState({
     required this.state,
     required this.formStates,
-    this.ipTextController,
-    this.portTextController,
-    this.userTextController,
+    required this.textControllers,
   });
-
-  @override
-  List<Object?> get props => [state, formStates, userTextController, ipTextController, portTextController];
 
   HomeFormState copyWith({
     HomeFormStatus? state,
     List<GlobalKey<FormState>>? formStates,
-    TextEditingController? userTextController,
-    TextEditingController? ipTextController,
-    TextEditingController? portTextController,
+    Map<String, TextEditingController>? textControllers,
   }) {
     return HomeFormState(
       state: state ?? this.state,
       formStates: formStates ?? this.formStates,
-      userTextController: userTextController ?? this.userTextController,
-      ipTextController: ipTextController ?? this.ipTextController,
-      portTextController: portTextController ?? this.portTextController,
+      textControllers: textControllers ?? this.textControllers,
     );
   }
 }

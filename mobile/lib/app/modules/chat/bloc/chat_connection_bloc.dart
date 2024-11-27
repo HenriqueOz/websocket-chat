@@ -35,7 +35,7 @@ class ChatConnectionBloc extends Bloc<ChatConnectionEvent, ChatConnectionState> 
     await _websocket.disconnect();
   }
 
-  Stream<MessageModel> messageStream() {
-    return _websocket.messages();
+  Stream<MessageModel>? messageStream() {
+    return _websocket.messageStream();
   }
 }

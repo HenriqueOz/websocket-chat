@@ -32,8 +32,18 @@ class _HomeServerFormState extends State<HomeServerForm> {
   @override
   void initState() {
     context.read<HomeFormBloc>().add(HomeFormAddFormState(formState: _formState));
-    context.read<HomeFormBloc>().add(HomeFormAddIpController(controller: _ipFieldEC));
-    context.read<HomeFormBloc>().add(HomeFormAddPortController(controller: _portFieldEC));
+    context.read<HomeFormBloc>().add(
+          HomeFormAddController(
+            controller: _ipFieldEC,
+            key: 'ip_controller',
+          ),
+        );
+    context.read<HomeFormBloc>().add(
+          HomeFormAddController(
+            controller: _portFieldEC,
+            key: 'port_controller',
+          ),
+        );
     super.initState();
   }
 
