@@ -12,6 +12,8 @@ class LightColors {
         error: Color(0xffFC1F44),
         onError: Color(0xffFFFFFF),
         surface: Color(0xffF4FAFB),
+        surfaceDim: Color.fromARGB(255, 221, 224, 224),
+        surfaceBright: Color.fromARGB(255, 238, 247, 247),
         onSurface: Color(0xff000000),
         shadow: Color(0xff000000),
       );

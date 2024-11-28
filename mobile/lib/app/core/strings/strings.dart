@@ -1,3 +1,4 @@
+//TODO migrate strings to json file
 final class Strings {
   static const String homeTitle = 'WebsocketClient\nchat';
   static const String homeSubtitle = 'A simple websocket chat app';
@@ -15,8 +16,14 @@ final class Strings {
   static const String homeUsernameFieldLabel = 'Username';
   static const String homeUsernameFieldHint = 'ex: GeorgeCurioso';
 
+  static const String chatExitModalTitle = 'Exit Chat?';
+  static const String chatExitModalDescription = 'You will be disconnected from the chat room';
+  static const String chatConnectionStatus = 'Connection Status';
+
   static String formMinimunChars(int minimun) => 'Field must have at least $minimun characters';
   static const String formCantBeEmpty = 'Field can\'t be empty';
-
   static const String formInvalidForm = 'Invalid form';
+
+  static const String labelExit = 'Exit';
+  static const String labelCancel = 'Cancel';
 }

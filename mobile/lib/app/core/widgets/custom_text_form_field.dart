@@ -3,27 +3,35 @@ import 'package:flutter/services.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final Color color;
-  final Color focusColor;
-  final String hint;
-  final String label;
+  final Color? color;
+  final Color? focusColor;
+  final String? hint;
+  final String? label;
   final TextEditingController? controller;
-  final FloatingLabelBehavior? floatingLabelBehavior;
-  final TextInputType? textInputType;
+  final FloatingLabelBehavior floatingLabelBehavior;
+  final TextInputType textInputType;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String? value)? validator;
+  final int? maxLines;
+  final bool? isDense;
+  final Color fillColor;
+  final double borderRadius;
 
   const CustomTextFormField({
     super.key,
+    this.color,
+    this.focusColor,
+    this.isDense,
+    this.hint,
+    this.label,
     this.controller,
-    required this.color,
-    required this.focusColor,
-    required this.hint,
-    required this.label,
     this.validator,
+    this.inputFormatters,
+    this.maxLines,
     this.floatingLabelBehavior = FloatingLabelBehavior.always,
     this.textInputType = TextInputType.multiline,
-    this.inputFormatters,
+    this.fillColor = Colors.transparent,
+    this.borderRadius = 10,
   });
 
   @override
@@ -32,6 +40,8 @@ class CustomTextFormField extends StatelessWidget {
       style: TextStyle(
         color: color,
       ),
+      enableSuggestions: false,
+      maxLines: maxLines,
       controller: controller,
       validator: validator,
       inputFormatters: inputFormatters,
@@ -40,14 +50,17 @@ class CustomTextFormField extends StatelessWidget {
         FocusScope.of(context).nextFocus();
       },
       decoration: InputDecoration(
+        isDense: isDense,
         floatingLabelBehavior: floatingLabelBehavior,
-        label: Text(label),
+        filled: fillColor != Colors.transparent,
+        fillColor: fillColor,
+        label: label != null ? Text(label!) : null,
         labelStyle: TextStyle(
           color: color,
         ),
         hintText: hint,
         hintStyle: TextStyle(
-          color: color.withOpacity(.5),
+          color: color?.withOpacity(.5),
         ),
         enabledBorder: _defaultBoder(color),
         focusedBorder: _defaultBoder(focusColor),
@@ -57,12 +70,17 @@ class CustomTextFormField extends StatelessWidget {
     );
   }
 
-  InputBorder _defaultBoder(Color color) {
-    return OutlineInputBorder(
-      borderRadius: const BorderRadius.all(Radius.circular(10)),
-      borderSide: BorderSide(
-        color: color,
-      ),
-    );
+  InputBorder? _defaultBoder(Color? color) {
+    return color != null
+        ? OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+            borderSide: BorderSide(
+              color: color,
+            ))
+        : OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+            ));
   }
 }

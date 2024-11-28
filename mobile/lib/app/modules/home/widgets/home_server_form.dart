@@ -64,6 +64,7 @@ class _HomeServerFormState extends State<HomeServerForm> {
           SizedBox(
             width: context.screenSize.width * .5,
             child: CustomTextFormField(
+              maxLines: 1,
               controller: _ipFieldEC,
               label: Strings.homeIpFieldLabel,
               hint: Strings.homeIpFieldHint,
@@ -93,6 +94,7 @@ class _HomeServerFormState extends State<HomeServerForm> {
             width: context.screenSize.width * .5,
             child: CustomTextFormField(
               controller: _portFieldEC,
+              maxLines: 1,
               label: Strings.homePortFieldLabel,
               hint: Strings.homePortFieldHint,
               color: context.colors.onPrimary,

@@ -12,6 +12,8 @@ class DarkColors {
         error: Color(0xffFC1F44),
         onError: Color(0xffFFFFFF),
         surface: Color.fromARGB(255, 61, 61, 61),
+        surfaceDim: Color.fromARGB(255, 43, 43, 43),
+        surfaceBright: Color.fromARGB(255, 78, 78, 78),
         onSurface: Color(0xffFFFFFF),
         shadow: Color(0xff000000),
       );
