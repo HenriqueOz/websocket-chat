@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
 import 'package:websocket_flutter/app/core/routes/routes.dart';
 import 'package:websocket_flutter/app/core/strings/strings.dart';
+import 'package:websocket_flutter/app/core/theme/extensions/button_themes.dart';
 import 'package:websocket_flutter/app/core/utils/messenger.dart';
 import 'package:websocket_flutter/app/core/widgets/custom_text_form_field.dart';
 import 'package:websocket_flutter/app/data/models/server_address_model.dart';
@@ -101,6 +102,7 @@ class _HomeBottomState extends State<HomeBottom> {
             height: 30,
           ),
           ElevatedButton(
+            style: context.theme.extension<ButtonThemes>()?.primaryButton,
             onPressed: () {
               final HomeFormBloc bloc = context.read<HomeFormBloc>();
 

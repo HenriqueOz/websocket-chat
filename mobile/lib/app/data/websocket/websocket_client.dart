@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:websocket_flutter/app/data/models/message_model.dart';
@@ -49,12 +48,11 @@ class WebsocketClient {
   }) async {
     client = IO.io(
       url,
-      IO.OptionBuilder().setTransports(['websocket']).build(),
+      IO.OptionBuilder().setTransports(['websocket']).disableAutoConnect().build(),
     );
 
     setUpEvents(client!, user);
     client?.connect();
-    log(client?.connected.toString() ?? 'banana');
   }
 
   void setUpEvents(IO.Socket socket, UserModel user) {
@@ -69,7 +67,6 @@ class WebsocketClient {
     socket.on(
       WebsocketEvents.message.event,
       (data) {
-        print('message event');
         addDataToStream(messageStreamController, MessageModel.fromJson(data));
       },
     );
@@ -92,9 +89,14 @@ class WebsocketClient {
     client?.clearListeners();
   }
 
+  void dispose() async {
+    await messageStreamController.close();
+    await statusStreamController.close();
+  }
+
   void addDataToStream<T>(StreamController<T>? streamController, T data) {
     if (streamController != null && !streamController.isClosed) {
-      streamController.add(data);
+      streamController.sink.add(data);
     }
   }
 

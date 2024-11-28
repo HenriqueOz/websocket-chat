@@ -63,6 +63,7 @@ class ChatConnectionBloc extends Bloc<ChatConnectionEvent, ChatConnectionState> 
     messageSubscriptions.cancel();
     statusSubscriptions.cancel();
     _websocket.disconnect();
+    _websocket.dispose();
     return super.close();
   }
 }

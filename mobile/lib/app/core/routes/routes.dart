@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:websocket_flutter/app/data/models/server_address_model.dart';
 import 'package:websocket_flutter/app/data/models/user_model.dart';
 import 'package:websocket_flutter/app/data/websocket/websocket_client.dart';
@@ -18,42 +19,59 @@ final class Routes {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case (RouteNames.homePage):
-        return MaterialPageRoute(
-          builder: (context) => MultiProvider(
-            providers: [
-              BlocProvider(create: (context) => HomeFormBloc()),
-            ],
-            builder: (context, child) => const HomePage(),
-          ),
+        return route(
+          settings: settings,
+          providers: [
+            BlocProvider(create: (context) => HomeFormBloc()),
+          ],
+          child: const HomePage(),
         );
+
       case (RouteNames.chatPage):
         final Map<String, dynamic> arguments = settings.arguments as Map<String, dynamic>;
         final ServerAddressModel serverAddressModel = arguments['server'] as ServerAddressModel;
         final UserModel userModel = arguments['user'] as UserModel;
 
-        return MaterialPageRoute(
-          builder: (context) => MultiProvider(
-            providers: [
-              Provider(
-                create: (context) => WebsocketClient(
-                  host: serverAddressModel.ipv4,
-                  port: serverAddressModel.port,
-                ),
+        return route(
+          settings: settings,
+          providers: [
+            Provider(
+              create: (context) => WebsocketClient(
+                host: serverAddressModel.ipv4,
+                port: serverAddressModel.port,
               ),
-              BlocProvider(
-                create: (context) => ChatConnectionBloc(
-                  websocket: context.read<WebsocketClient>(),
-                  userModel: userModel,
-                ),
-              ),
-            ],
-            child: ChatPage(
-              user: userModel,
             ),
+            BlocProvider(
+              create: (context) => ChatConnectionBloc(
+                websocket: context.read<WebsocketClient>(),
+                userModel: userModel,
+              ),
+            ),
+          ],
+          child: ChatPage(
+            user: userModel,
           ),
         );
       default:
         return MaterialPageRoute(builder: (context) => const NotFoundPage());
     }
+  }
+
+  static MaterialPageRoute route({
+    required RouteSettings settings,
+    required List<SingleChildWidget> providers,
+    required Widget? child,
+  }) {
+    assert(providers.isNotEmpty, 'providers must not be empty');
+
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (context) {
+        return MultiProvider(
+          providers: providers,
+          child: child,
+        );
+      },
+    );
   }
 }

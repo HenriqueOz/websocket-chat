@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:websocket_flutter/app/core/theme/extensions/button_themes.dart';
 
 part 'colors/dark_colors.dart';
 part 'colors/light_colors.dart';
@@ -12,6 +13,9 @@ class AppTheme {
   ThemeData get themeData {
     return ThemeData(
       colorScheme: colors,
+      extensions: [
+        ButtonThemes(colors: colors),
+      ],
       scaffoldBackgroundColor: colors.surface,
       textTheme: GoogleFonts.getTextTheme("Poppins"),
       textSelectionTheme: TextSelectionThemeData(
