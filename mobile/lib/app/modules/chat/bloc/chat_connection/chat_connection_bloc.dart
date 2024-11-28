@@ -13,6 +13,8 @@ class ChatConnectionBloc extends Bloc<ChatConnectionEvent, ChatConnectionState> 
   final WebsocketClient _websocket;
   final UserModel _userModel;
 
+  late StreamSubscription<MessageModel> _messageStreamSubscription;
+
   ChatConnectionBloc({
     required WebsocketClient websocket,
     required UserModel userModel,
@@ -26,20 +28,28 @@ class ChatConnectionBloc extends Bloc<ChatConnectionEvent, ChatConnectionState> 
           ),
         ) {
     on<ChatConnectionConnect>(_chatConnect);
+    on<ChatConnectionReceiveMessage>(_receiveMessage);
+
+    _messageStreamSubscription = _websocket.messageStream.listen((message) {
+      add(ChatConnectionReceiveMessage(message: message));
+    });
   }
 
   Future<void> _chatConnect(ChatConnectionConnect event, Emitter<ChatConnectionState> emit) async {
     await _websocket.connect(user: _userModel);
   }
 
-  Stream<MessageModel> get messageStream => _websocket.messageStream;
-
   Stream<SocketStatus> get statusStream => _websocket.statusStream;
+
+  Future<void> _receiveMessage(ChatConnectionReceiveMessage event, Emitter<ChatConnectionState> emit) async {
+    emit(state.updateMessages(event.message));
+  }
 
   @override
   Future<void> close() {
     _websocket.disconnect();
     _websocket.dispose();
+    _messageStreamSubscription.cancel();
     return super.close();
   }
 }

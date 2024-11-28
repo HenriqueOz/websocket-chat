@@ -12,7 +12,13 @@ class ChatMessageInput extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         decoration: BoxDecoration(
-          color: context.colors.surfaceDim.withOpacity(.75),
+          boxShadow: [
+            BoxShadow(
+              color: context.colors.shadow.withOpacity(.5),
+              blurRadius: 3,
+            )
+          ],
+          color: context.colors.surface,
         ),
         child: Row(
           children: [

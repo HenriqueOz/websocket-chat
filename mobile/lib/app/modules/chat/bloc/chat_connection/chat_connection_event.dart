@@ -4,12 +4,13 @@ sealed class ChatConnectionEvent {}
 
 final class ChatConnectionConnect extends ChatConnectionEvent {}
 
-final class ChatConnectionRecieveMessage extends ChatConnectionEvent {
+final class ChatConnectionReceiveMessage extends ChatConnectionEvent {
   final MessageModel message;
-  ChatConnectionRecieveMessage({required this.message});
+  ChatConnectionReceiveMessage({required this.message});
 }
 
-final class ChatConnectionSocketStatus extends ChatConnectionEvent {
-  final SocketStatus status;
-  ChatConnectionSocketStatus({required this.status});
-}
+//* Unused
+// final class ChatConnectionSocketStatus extends ChatConnectionEvent {
+//   final SocketStatus status;
+//   ChatConnectionSocketStatus({required this.status});
+// }

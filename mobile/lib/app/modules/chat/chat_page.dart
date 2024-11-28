@@ -10,6 +10,7 @@ import 'package:websocket_flutter/app/data/models/user_model.dart';
 import 'package:websocket_flutter/app/modules/chat/bloc/chat_connection/chat_connection_bloc.dart';
 import 'package:websocket_flutter/app/modules/chat/widgets/chat_app_bar.dart';
 import 'package:websocket_flutter/app/modules/chat/widgets/chat_message_input.dart';
+import 'package:websocket_flutter/app/modules/chat/widgets/chat_message_list.dart';
 
 class ChatPage extends StatefulWidget {
   final UserModel user;
@@ -71,7 +72,9 @@ class _ChatPageState extends State<ChatPage> {
           width: context.safeAreaSize.width,
           child: Column(
             children: [
-              const Spacer(),
+              const Expanded(
+                child: ChatMessageList(),
+              ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
