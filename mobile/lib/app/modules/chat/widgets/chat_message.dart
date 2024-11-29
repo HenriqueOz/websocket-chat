@@ -22,6 +22,7 @@ class ChatMemberMessage extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(
             maxWidth: maxMessageWidth,
+            minWidth: 100,
           ),
           child: IntrinsicWidth(
             child: Container(
