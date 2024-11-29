@@ -9,7 +9,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? label;
   final TextEditingController? controller;
   final FloatingLabelBehavior floatingLabelBehavior;
-  final TextInputType textInputType;
+  final TextInputType? textInputType;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String? value)? validator;
   final int? maxLines;
@@ -28,8 +28,8 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.inputFormatters,
     this.maxLines,
+    this.textInputType,
     this.floatingLabelBehavior = FloatingLabelBehavior.always,
-    this.textInputType = TextInputType.multiline,
     this.fillColor = Colors.transparent,
     this.borderRadius = 10,
   });
