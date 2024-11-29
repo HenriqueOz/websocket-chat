@@ -1,0 +1,17 @@
+{
+  "name": "server_1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peguinm",
+  "license": "ISC",
+  "description": "simple websocket for message sending",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.21.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
+  }
+}
