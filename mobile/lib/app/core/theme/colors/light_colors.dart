@@ -3,7 +3,7 @@ part of '../app_theme.dart';
 class LightColors {
   static ColorScheme get colors => const ColorScheme(
         brightness: Brightness.light,
-        primary: Color.fromARGB(255, 35, 182, 125),
+        primary: Color(0xFF23B67D),
         onPrimary: Color(0xffffffff),
         secondary: Color.fromARGB(255, 56, 192, 181),
         onSecondary: Color(0xffffffff),
