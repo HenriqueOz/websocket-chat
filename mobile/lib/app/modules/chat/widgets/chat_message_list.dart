@@ -5,6 +5,7 @@ import 'package:websocket_flutter/app/data/models/message_model.dart';
 import 'package:websocket_flutter/app/modules/chat/bloc/chat_connection/chat_connection_bloc.dart';
 import 'package:websocket_flutter/app/modules/chat/bloc/message_type.dart';
 import 'package:websocket_flutter/app/modules/chat/widgets/chat_message.dart';
+import 'package:websocket_flutter/app/modules/chat/widgets/chat_system_message.dart';
 
 enum ScrollMode {
   bottomAttach,
@@ -88,13 +89,14 @@ class _ChatMessageListState extends State<ChatMessageList> {
             final MessageType messageType = MessageType.fromString(message.messageType);
 
             switch (messageType) {
-              case MessageType.system:
               case MessageType.user:
               case MessageType.member:
                 return ChatMemberMessage(message: message);
+              case MessageType.system:
+                return ChatSystemMessage(message: message);
               case MessageType.undefined:
+                return null;
             }
-            return null;
           },
         );
       },

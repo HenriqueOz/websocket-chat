@@ -51,7 +51,7 @@ class ChatConnectionBloc extends Bloc<ChatConnectionEvent, ChatConnectionState> 
     final MessageModel message = MessageModel(
       author: _userModel.name,
       body: event.message,
-      date: DateTime.now().toIso8601String(),
+      date: DateTime.now().toUtc().toIso8601String(),
       messageType: MessageType.user.name,
     );
 
