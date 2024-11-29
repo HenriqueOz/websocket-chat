@@ -18,7 +18,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: StreamBuilder(
         stream: context.read<ChatConnectionBloc>().statusStream,
         builder: (context, snapshot) {
-          final SocketStatus? socketStatus = snapshot.data;
+          final SocketStatus socketStatus = snapshot.data ?? SocketStatus.disconnected;
 
           return Column(
             children: [
@@ -29,7 +29,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               Text(
-                '${socketStatus?.status}',
+                socketStatus.status,
                 style: context.theme.textTheme.labelMedium?.copyWith(
                   color: context.colors.onPrimary,
                 ),

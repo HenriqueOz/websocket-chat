@@ -94,6 +94,10 @@ class WebsocketClient {
     await statusStreamController.close();
   }
 
+  void sendMessage({required MessageModel message}) {
+    client?.emit(WebsocketEvents.message.event, message.toJson());
+  }
+
   void addDataToStream<T>(StreamController<T>? streamController, T data) {
     if (streamController != null && !streamController.isClosed) {
       streamController.sink.add(data);

@@ -43,6 +43,8 @@ class AppDrawer extends StatelessWidget {
                   leading: ThemeSelector(
                     builder: (context, themeMode) {
                       return Switch(
+                        activeColor: context.colors.secondary,
+                        thumbColor: WidgetStatePropertyAll(context.colors.onSurface),
                         value: themeMode == ThemeMode.dark,
                         onChanged: (value) {
                           if (themeMode == ThemeMode.dark) {

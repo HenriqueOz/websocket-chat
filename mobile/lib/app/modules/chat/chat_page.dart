@@ -67,9 +67,10 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: context.colors.surfaceDim,
         appBar: const ChatAppBar(),
         drawer: const AppDrawer(),
-        body: SizedBox(
-          height: context.safeAreaSizeWithoutAppBar.height,
-          width: context.safeAreaSize.width,
+        body: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: context.safeAreaSizeWithoutAppBar.height,
+          ),
           child: Column(
             children: [
               const Expanded(

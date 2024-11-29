@@ -4,12 +4,14 @@ import 'dart:convert';
 class MessageModel {
   final String author;
   final String body;
-  final DateTime date;
+  final String date;
+  final String messageType;
 
   MessageModel({
     required this.author,
     required this.body,
     required this.date,
+    required this.messageType,
   });
 
   factory MessageModel.fromJson(String json) {
@@ -18,7 +20,8 @@ class MessageModel {
     return MessageModel(
       author: data['author'] as String,
       body: data['body'] as String,
-      date: DateTime.parse(data['date'] as String),
+      date: data['date'] as String,
+      messageType: data['messageType'] as String,
     );
   }
 
@@ -27,6 +30,7 @@ class MessageModel {
       'auhtor': author,
       'body': body,
       'date': date,
+      'messageType': messageType,
     };
   }
 

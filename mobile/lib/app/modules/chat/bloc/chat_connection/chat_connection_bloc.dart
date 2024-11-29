@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:websocket_flutter/app/data/models/message_model.dart';
 import 'package:websocket_flutter/app/data/models/user_model.dart';
 import 'package:websocket_flutter/app/data/websocket/websocket_client.dart';
+import 'package:websocket_flutter/app/modules/chat/bloc/message_type.dart';
 
 part 'chat_connection_event.dart';
 part 'chat_connection_state.dart';
@@ -29,6 +30,7 @@ class ChatConnectionBloc extends Bloc<ChatConnectionEvent, ChatConnectionState> 
         ) {
     on<ChatConnectionConnect>(_chatConnect);
     on<ChatConnectionReceiveMessage>(_receiveMessage);
+    on<ChatConnectionSendMessage>(_sendMessage);
 
     _messageStreamSubscription = _websocket.messageStream.listen((message) {
       add(ChatConnectionReceiveMessage(message: message));
@@ -43,6 +45,19 @@ class ChatConnectionBloc extends Bloc<ChatConnectionEvent, ChatConnectionState> 
 
   Future<void> _receiveMessage(ChatConnectionReceiveMessage event, Emitter<ChatConnectionState> emit) async {
     emit(state.updateMessages(event.message));
+  }
+
+  Future<void> _sendMessage(ChatConnectionSendMessage event, Emitter<ChatConnectionState> emit) async {
+    final MessageModel message = MessageModel(
+      author: _userModel.name,
+      body: event.message,
+      date: DateTime.now().toIso8601String(),
+      messageType: MessageType.user.name,
+    );
+
+    _websocket.sendMessage(message: message);
+
+    emit(state.updateMessages(message));
   }
 
   @override

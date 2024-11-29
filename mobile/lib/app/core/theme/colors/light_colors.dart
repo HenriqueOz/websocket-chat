@@ -7,7 +7,7 @@ class LightColors {
         onPrimary: Color(0xffffffff),
         secondary: Color.fromARGB(255, 56, 192, 181),
         onSecondary: Color(0xffffffff),
-        tertiary: Color.fromARGB(255, 85, 143, 209),
+        tertiary: Color.fromARGB(255, 209, 131, 85),
         onTertiary: Color(0xffffffff),
         error: Color(0xffFC1F44),
         onError: Color(0xffFFFFFF),

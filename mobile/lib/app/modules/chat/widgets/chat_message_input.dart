@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
 import 'package:websocket_flutter/app/core/theme/extensions/button_themes.dart';
 import 'package:websocket_flutter/app/core/widgets/custom_text_form_field.dart';
+import 'package:websocket_flutter/app/modules/chat/bloc/chat_connection/chat_connection_bloc.dart';
 
-class ChatMessageInput extends StatelessWidget {
+class ChatMessageInput extends StatefulWidget {
   const ChatMessageInput({super.key});
+
+  @override
+  State<ChatMessageInput> createState() => _ChatMessageInputState();
+}
+
+class _ChatMessageInputState extends State<ChatMessageInput> {
+  final TextEditingController _inputEC = TextEditingController();
+
+  @override
+  void dispose() {
+    _inputEC.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +29,7 @@ class ChatMessageInput extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: context.colors.shadow.withOpacity(.5),
+              color: context.colors.shadow.withOpacity(.2),
               blurRadius: 3,
             )
           ],
@@ -28,15 +43,13 @@ class ChatMessageInput extends StatelessWidget {
                   minHeight: 30,
                   maxHeight: 120,
                 ),
-                child: SingleChildScrollView(
-                  reverse: true,
-                  child: CustomTextFormField(
-                    color: context.colors.onSurface,
-                    focusColor: context.colors.primary,
-                    isDense: true,
-                    fillColor: context.colors.surfaceBright,
-                    hint: 'Type your message',
-                  ),
+                child: CustomTextFormField(
+                  controller: _inputEC,
+                  color: context.colors.onSurface,
+                  focusColor: context.colors.primary,
+                  isDense: true,
+                  fillColor: context.colors.surfaceBright,
+                  hint: 'Type your message',
                 ),
               ),
             ),
@@ -44,7 +57,16 @@ class ChatMessageInput extends StatelessWidget {
               width: 10,
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                if (_inputEC.text.isNotEmpty) {
+                  context.read<ChatConnectionBloc>().add(
+                        ChatConnectionSendMessage(
+                          message: _inputEC.text,
+                        ),
+                      );
+                  _inputEC.clear();
+                }
+              },
               style: context.theme.extension<ButtonThemes>()?.primaryButton.copyWith(
                     shape: const WidgetStatePropertyAll(
                       RoundedRectangleBorder(
