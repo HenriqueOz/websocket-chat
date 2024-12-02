@@ -27,7 +27,7 @@ class MessageModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'auhtor': author,
+      'author': author,
       'body': body,
       'date': date,
       'messageType': messageType,

@@ -21,6 +21,13 @@ class _ChatMessageInputState extends State<ChatMessageInput> {
     super.dispose();
   }
 
+  bool _validateInput(String input) {
+    final RegExp regex = RegExp(r'\s');
+    final int spaceCount = regex.allMatches(input).length;
+
+    return input.isNotEmpty && input.length != spaceCount;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -58,7 +65,7 @@ class _ChatMessageInputState extends State<ChatMessageInput> {
             ),
             IconButton(
               onPressed: () {
-                if (_inputEC.text.isNotEmpty) {
+                if (_validateInput(_inputEC.text)) {
                   context.read<ChatConnectionBloc>().add(
                         ChatConnectionSendMessage(
                           message: _inputEC.text,
