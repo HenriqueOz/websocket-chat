@@ -38,7 +38,7 @@ class ChatSystemMessage extends StatelessWidget {
               ),
               Text(
                 dateFormat.format(
-                  DateTime.parse(message.date),
+                  DateTime.parse(message.date).toLocal(),
                 ),
                 style: context.theme.textTheme.labelSmall?.copyWith(
                   color: context.colors.onSurface.withOpacity(.5),

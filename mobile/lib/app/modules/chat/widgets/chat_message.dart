@@ -66,7 +66,7 @@ class ChatMemberMessage extends StatelessWidget {
                     children: [
                       Text(
                         dateFormat.format(
-                          DateTime.parse(message.date),
+                          DateTime.parse(message.date).toLocal(),
                         ),
                         style: context.theme.textTheme.labelSmall?.copyWith(
                           color: context.colors.onSurface,
