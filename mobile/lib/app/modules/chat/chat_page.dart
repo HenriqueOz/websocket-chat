@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
 import 'package:websocket_flutter/app/core/routes/routes.dart';
-import 'package:websocket_flutter/app/core/strings/strings.dart';
 import 'package:websocket_flutter/app/core/theme/extensions/button_themes.dart';
 import 'package:websocket_flutter/app/core/utils/messenger.dart';
 import 'package:websocket_flutter/app/core/widgets/app_drawer.dart';
@@ -37,22 +36,22 @@ class _ChatPageState extends State<ChatPage> {
     if (didPop) return;
 
     Messenger.of(context).showCustomDialog(
-      title: Strings.chatExitModalTitle,
-      description: Strings.chatExitModalDescription,
+      title: context.strings["chat"]?["exitModalTitle"] ?? '',
+      description: context.strings["chat"]?["exitModalDescription"] ?? '',
       actions: [
         ElevatedButton(
           style: context.theme.extension<ButtonThemes>()?.errorButton,
           onPressed: () {
             Navigator.popUntil(context, ModalRoute.withName(RouteNames.homePage));
           },
-          child: const Text(Strings.labelExit),
+          child: Text(context.strings["label"]?["exit"] ?? ''),
         ),
         ElevatedButton(
           style: context.theme.extension<ButtonThemes>()?.primaryButton,
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text(Strings.labelCancel),
+          child: Text(context.strings["label"]?["cancel"] ?? ''),
         ),
       ],
     );

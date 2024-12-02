@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
-import 'package:websocket_flutter/app/core/strings/strings.dart';
 import 'package:websocket_flutter/app/core/widgets/custom_app_bar.dart';
 import 'package:websocket_flutter/app/data/websocket/websocket_client.dart';
 import 'package:websocket_flutter/app/modules/chat/bloc/chat_connection/chat_connection_bloc.dart';
@@ -23,7 +22,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           return Column(
             children: [
               Text(
-                Strings.chatConnectionStatus,
+                context.strings["chat"]?["connectionStatus"] ?? '',
                 style: TextStyle(
                   color: context.colors.onPrimary,
                 ),

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
 import 'package:websocket_flutter/app/core/routes/routes.dart';
-import 'package:websocket_flutter/app/core/strings/strings.dart';
+import 'package:websocket_flutter/app/core/strings/string_ext.dart';
 import 'package:websocket_flutter/app/core/theme/extensions/button_themes.dart';
 import 'package:websocket_flutter/app/core/utils/messenger.dart';
 import 'package:websocket_flutter/app/core/widgets/custom_text_form_field.dart';
@@ -62,7 +62,7 @@ class _HomeBottomState extends State<HomeBottom> {
       child: Column(
         children: [
           Text(
-            Strings.homeBottomTitle,
+            context.strings["home"]?["bottomTitle"] ?? '',
             style: context.theme.textTheme.titleMedium?.apply(
               color: context.colors.onSurface,
             ),
@@ -78,16 +78,18 @@ class _HomeBottomState extends State<HomeBottom> {
               controller: _usernameEC,
               color: context.colors.onSurface,
               focusColor: context.colors.primary,
-              hint: Strings.homeUsernameFieldHint,
-              label: Strings.homeUsernameFieldLabel,
+              hint: context.strings["home"]?["usernameFieldHint"],
+              label: context.strings["home"]?["usernameFieldLabel"],
               textInputType: TextInputType.name,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return Strings.formCantBeEmpty;
+                  return context.strings["form"]?["cantBeEmpty"];
                 }
 
                 if (value.length < 5) {
-                  return Strings.formMinimunChars(5);
+                  final String? alert = context.strings["form"]?["minimunChars"];
+
+                  return alert?.replacePlaceholder('5');
                 }
 
                 return null;
@@ -109,7 +111,7 @@ class _HomeBottomState extends State<HomeBottom> {
               bloc.add(
                 HomeFormSubmit(
                   onError: (_) => Messenger.of(context).showSnackbar(
-                    message: Strings.formInvalidForm,
+                    message: context.strings["form"]?["invalidForm"] ?? '',
                     backgroundColor: context.colors.error,
                     textColor: context.colors.onError,
                   ),
@@ -131,7 +133,7 @@ class _HomeBottomState extends State<HomeBottom> {
                 ),
               );
             },
-            child: const Text(Strings.homeJoinChatButton),
+            child: Text(context.strings["home"]?["joinChatButton"] ?? ''),
           ),
         ],
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
-import 'package:websocket_flutter/app/core/strings/strings.dart';
 
 class HomeTitle extends StatelessWidget {
   const HomeTitle({super.key});
@@ -12,7 +11,7 @@ class HomeTitle extends StatelessWidget {
         Align(
           alignment: Alignment.center,
           child: Text(
-            Strings.homeTitle,
+            context.strings["home"]?["title"] ?? '',
             textAlign: TextAlign.center,
             style: context.theme.textTheme.headlineMedium?.copyWith(
               color: context.colors.onPrimary,
@@ -24,7 +23,7 @@ class HomeTitle extends StatelessWidget {
         Align(
           alignment: Alignment.center,
           child: Text(
-            Strings.homeSubtitle,
+            context.strings["home"]?["subtitle"] ?? '',
             textAlign: TextAlign.center,
             style: context.theme.textTheme.titleSmall?.copyWith(
               color: context.colors.onPrimary,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:websocket_flutter/app/core/strings/strings.dart';
 import 'package:websocket_flutter/app/core/utils/validator.dart';
 import 'package:websocket_flutter/app/core/widgets/custom_text_form_field.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
@@ -55,7 +54,7 @@ class _HomeServerFormState extends State<HomeServerForm> {
       child: Column(
         children: [
           Text(
-            Strings.homeServerFormDescription,
+            context.strings["home"]?["serverFormDescription"] ?? '',
             style: TextStyle(
               color: context.colors.onPrimary,
             ),
@@ -66,19 +65,19 @@ class _HomeServerFormState extends State<HomeServerForm> {
             child: CustomTextFormField(
               maxLines: 1,
               controller: _ipFieldEC,
-              label: Strings.homeIpFieldLabel,
-              hint: Strings.homeIpFieldHint,
+              label: context.strings["home"]?["ipFieldLabel"],
+              hint: context.strings["home"]?["ipFieldHint"],
               color: context.colors.onPrimary,
               focusColor: context.colors.onPrimary,
               floatingLabelBehavior: FloatingLabelBehavior.auto,
               textInputType: TextInputType.number,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return Strings.formCantBeEmpty;
+                  return context.strings["form"]?["cantBeEmpty"];
                 }
 
                 if (!Validator.validateIPv4(value)) {
-                  return Strings.homeInvalidIp;
+                  return context.strings["home"]?["invalidIp"];
                 }
 
                 return null;
@@ -95,19 +94,19 @@ class _HomeServerFormState extends State<HomeServerForm> {
             child: CustomTextFormField(
               controller: _portFieldEC,
               maxLines: 1,
-              label: Strings.homePortFieldLabel,
-              hint: Strings.homePortFieldHint,
+              label: context.strings["home"]?["portFieldLabel"],
+              hint: context.strings["home"]?["portFieldHint"],
               color: context.colors.onPrimary,
               focusColor: context.colors.onPrimary,
               floatingLabelBehavior: FloatingLabelBehavior.auto,
               textInputType: TextInputType.number,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return Strings.formCantBeEmpty;
+                  return context.strings["form"]?["cantBeEmpty"];
                 }
 
                 if (!Validator.validatePort(value)) {
-                  return Strings.homeInvalidPort;
+                  return context.strings["home"]?["invalidPort"];
                 }
 
                 return null;

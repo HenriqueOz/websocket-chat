@@ -49,7 +49,6 @@ class CustomTextFormField extends StatelessWidget {
       onEditingComplete: () {
         FocusScope.of(context).nextFocus();
       },
-      autocorrect: true,
       decoration: InputDecoration(
         isDense: isDense,
         floatingLabelBehavior: floatingLabelBehavior,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:websocket_flutter/app/core/bloc/app_theme_cubit/app_theme_cubit.dart';
 import 'package:websocket_flutter/app/core/extensions/context_ext.dart';
-import 'package:websocket_flutter/app/core/strings/strings.dart';
 import 'package:websocket_flutter/app/core/widgets/theme_selector.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -24,7 +23,7 @@ class AppDrawer extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Text(
-                  Strings.homeDrawerTitle,
+                  context.strings["home"]?["drawerTitle"] ?? '',
                   style: context.theme.textTheme.headlineLarge?.copyWith(
                     color: context.colors.primary,
                   ),
@@ -38,7 +37,7 @@ class AppDrawer extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 _drawerItem(
-                  title: Strings.homeDrawerDarkMode,
+                  title: context.strings["home"]?["drawerDarkMode"] ?? '',
                   onTap: () {},
                   leading: ThemeSelector(
                     builder: (context, themeMode) {
@@ -58,6 +57,32 @@ class AppDrawer extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+          SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: TextButton(
+              onPressed: () {
+                Scaffold.of(context).closeDrawer();
+                Navigator.maybePop(context);
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  context.colors.error.withOpacity(.5),
+                ),
+                shape: const WidgetStatePropertyAll(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.zero),
+                  ),
+                ),
+              ),
+              child: Text(
+                context.strings["label"]?["back"] ?? '',
+                style: context.theme.textTheme.bodyLarge?.copyWith(
+                  color: context.colors.onError,
+                ),
+              ),
             ),
           ),
         ],

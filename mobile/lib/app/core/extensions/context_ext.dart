@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:websocket_flutter/app/core/strings/strings.dart';
 
 extension ContextExt on BuildContext {
   ColorScheme get colors => Theme.of(this).colorScheme;
@@ -12,6 +14,8 @@ extension ContextExt on BuildContext {
     }
     return size;
   }
+
+  Map<String, dynamic> get strings => read<Strings>().data;
 
   MediaQueryData get mediaQuery => MediaQuery.of(this);
 
