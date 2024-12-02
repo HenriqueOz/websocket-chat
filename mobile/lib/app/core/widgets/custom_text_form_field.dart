@@ -14,6 +14,8 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String? value)? validator;
   final int? maxLines;
   final bool? isDense;
+  final bool? autocorrect;
+  final bool enableSuggestions;
   final Color? fillColor;
   final double? borderRadius;
 
@@ -29,6 +31,8 @@ class CustomTextFormField extends StatelessWidget {
     this.inputFormatters,
     this.maxLines,
     this.textInputType,
+    this.autocorrect,
+    this.enableSuggestions = true,
     this.floatingLabelBehavior = FloatingLabelBehavior.always,
     this.fillColor = Colors.transparent,
     this.borderRadius = 10,
@@ -40,7 +44,7 @@ class CustomTextFormField extends StatelessWidget {
       style: TextStyle(
         color: color,
       ),
-      enableSuggestions: false,
+      enableSuggestions: enableSuggestions,
       maxLines: maxLines,
       controller: controller,
       validator: validator,

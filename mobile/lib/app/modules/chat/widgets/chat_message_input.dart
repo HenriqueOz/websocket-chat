@@ -30,64 +30,65 @@ class _ChatMessageInputState extends State<ChatMessageInput> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: context.colors.shadow.withOpacity(.2),
-              blurRadius: 3,
-            )
-          ],
-          color: context.colors.surface,
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  minHeight: 30,
-                  maxHeight: 120,
-                ),
-                child: CustomTextFormField(
-                  controller: _inputEC,
-                  color: context.colors.onSurface,
-                  focusColor: context.colors.primary,
-                  isDense: true,
-                  fillColor: context.colors.surfaceBright,
-                  hint: 'Type your message',
-                ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: context.colors.shadow.withOpacity(.2),
+            blurRadius: 3,
+          )
+        ],
+        color: context.colors.surface,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minHeight: 30,
+                maxHeight: 120,
+              ),
+              child: CustomTextFormField(
+                controller: _inputEC,
+                color: context.colors.onSurface,
+                focusColor: context.colors.primary,
+                isDense: true,
+                enableSuggestions: true,
+                autocorrect: true,
+                textInputType: TextInputType.multiline,
+                fillColor: context.colors.surfaceBright,
+                hint: 'Type your message',
               ),
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            IconButton(
-              onPressed: () {
-                if (_validateInput(_inputEC.text)) {
-                  context.read<ChatConnectionBloc>().add(
-                        ChatConnectionSendMessage(
-                          message: _inputEC.text,
-                        ),
-                      );
-                  _inputEC.clear();
-                }
-              },
-              style: context.theme.extension<ButtonThemes>()?.primaryButton.copyWith(
-                    shape: const WidgetStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          IconButton(
+            onPressed: () {
+              if (_validateInput(_inputEC.text)) {
+                context.read<ChatConnectionBloc>().add(
+                      ChatConnectionSendMessage(
+                        message: _inputEC.text,
+                      ),
+                    );
+                _inputEC.clear();
+              }
+            },
+            style: context.theme.extension<ButtonThemes>()?.primaryButton.copyWith(
+                  shape: const WidgetStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
                       ),
                     ),
                   ),
-              padding: const EdgeInsets.all(12),
-              icon: const Icon(Icons.send),
-            )
-          ],
-        ),
+                ),
+            padding: const EdgeInsets.all(12),
+            icon: const Icon(Icons.send),
+          )
+        ],
       ),
     );
   }
