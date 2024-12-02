@@ -8,14 +8,14 @@ class CustomTextFormField extends StatelessWidget {
   final String? hint;
   final String? label;
   final TextEditingController? controller;
-  final FloatingLabelBehavior floatingLabelBehavior;
+  final FloatingLabelBehavior? floatingLabelBehavior;
   final TextInputType? textInputType;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String? value)? validator;
   final int? maxLines;
   final bool? isDense;
-  final Color fillColor;
-  final double borderRadius;
+  final Color? fillColor;
+  final double? borderRadius;
 
   const CustomTextFormField({
     super.key,
@@ -72,14 +72,16 @@ class CustomTextFormField extends StatelessWidget {
   }
 
   InputBorder? _defaultBoder(Color? color) {
+    const double defaultRadius = 10;
+
     return color != null
         ? OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? defaultRadius)),
             borderSide: BorderSide(
               color: color,
             ))
         : OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? defaultRadius)),
             borderSide: const BorderSide(
               color: Colors.transparent,
             ));
