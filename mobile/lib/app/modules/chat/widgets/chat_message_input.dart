@@ -58,7 +58,7 @@ class _ChatMessageInputState extends State<ChatMessageInput> {
                 autocorrect: true,
                 textInputType: TextInputType.multiline,
                 fillColor: context.colors.surfaceBright,
-                hint: 'Type your message',
+                hint: context.strings["chat"]?["messageInputHint"],
               ),
             ),
           ),

@@ -75,7 +75,7 @@ class _ChatMessageListState extends State<ChatMessageList> {
               return Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'Messages',
+                  context.strings["chat"]?["messagesLabel"] ?? '',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: context.colors.onSurface,

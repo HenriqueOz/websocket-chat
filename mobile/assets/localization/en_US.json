@@ -21,7 +21,10 @@
     "chat": {
         "exitModalTitle": "Exit Chat?",
         "exitModalDescription": "You will be disconnected from the chat room",
-        "connectionStatus": "Connection Status"
+        "connectionStatus": "Connection Status",
+        "messageInputHint": "Type your message",
+        "messageInputLabel": "Type your message",
+        "messagesLabel": "Messages"
     },
     "form": {
         "minimunChars": "Field must have at least {0} characters",
