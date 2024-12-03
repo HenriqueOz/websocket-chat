@@ -8,11 +8,8 @@ To run the project use these docker command inside the project root directory
 
 ```
 git clone https://github.com/Peguinm/websocket-chat-server.git
-
 docker build -t websocket-server .
-
-docker run --rm -p <port>:3000 --name
-websocket-server-container websocket-server
+docker run --rm -p <port>:3000 --name websocket-server-container websocket-server
 ```
 
 Chat client app in flutter: https://github.com/Peguinm/websocket-chat-app
