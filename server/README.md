@@ -24,7 +24,7 @@ docker run --rm -p <port>:3000 --name websocket-server-container websocket-serve
 
 <br>
 
-> **optional for logging**
+> **Optional for logging**
 
 Run inside project folder
 
