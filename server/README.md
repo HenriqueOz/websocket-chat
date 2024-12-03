@@ -30,7 +30,6 @@ Run inside project folder
 
 ```
 docker logs -f websocket-server-container 1> logs/logs.log &
-docker logs -f websocket-server-container 2> logs/error.log &
 
 ```
 
