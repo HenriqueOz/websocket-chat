@@ -3,9 +3,10 @@ import http from "http";
 import { Socket } from "./web_socket/ws.js";
 import cors from "cors";
 import router from "./routes/routes.js";
+import { env } from "process";
 
-const HOST_NAME = "10.24.24.169";
-const PORT = 3001;
+const HOST_NAME = env.HOST;
+const PORT = env.PORT;
 
 const corsOptions = {
   origin: `http://${HOST_NAME}:${PORT}`,
