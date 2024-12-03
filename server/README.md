@@ -18,7 +18,7 @@ Run inside the project folder
 
 ```
 docker build -t websocket-server .
-docker run --rm -p <port>:3000 --name websocket-server-container websocket-server
+docker run -d --rm -p <port>:3000 --name websocket-server-container websocket-server
 
 ```
 
