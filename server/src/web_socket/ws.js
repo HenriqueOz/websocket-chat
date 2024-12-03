@@ -6,6 +6,7 @@ import { MessageType } from "../models/message_type.js";
 export class Socket {
   static inst = null;
   users = new Map();
+  lastUid = 0;
 
   constructor(server) {
     this.socket = new Server(server);
@@ -24,10 +25,21 @@ export class Socket {
       console.log("new connection id: ", client.id);
 
       client.on("connection-message", (data) => {
-        const name = JSON.parse(data)["name"];
-        this.users.set(client.id, new UserModel({ name: name }));
+        const userData = JSON.parse(data);
+        const name = userData.name;
+        // const uid = userData.uid;
 
+        this.users.set(
+          client.id,
+          new UserModel({ name: name, uid: this.lastUid })
+        );
+        this.sendConnectionMessage({
+          connectionId: client.id,
+          uid: this.lastUid,
+        });
         this.broadcastMessage({ body: `${name} joined` });
+
+        this.lastUid++;
       });
 
       client.on("message", (data) => {
@@ -44,10 +56,9 @@ export class Socket {
 
       client.on("disconnect", () => {
         const user = this.users.get(client.id);
+        if (user) {
+          console.log(`connection close id: ${client.id}`);
 
-        console.log(`connection close id: ${client.id}`);
-
-        if (user != undefined) {
           this.broadcastMessage({
             body: `${user.name} left`,
           });
@@ -57,16 +68,13 @@ export class Socket {
     });
   }
 
-  sendConnectionMessage({ exceptions = [], connectionId }) {
-    this.socket
-      .except(exceptions)
-      .to(connectionId)
-      .emit(
-        "connection-message",
-        JSON.stringify({
-          connectionId: connectionId,
-        })
-      );
+  sendConnectionMessage({ uid, connectionId }) {
+    this.socket.to(connectionId).emit(
+      "connection-message",
+      JSON.stringify({
+        uid: uid,
+      })
+    );
   }
 
   broadcastMessage({ body }) {
