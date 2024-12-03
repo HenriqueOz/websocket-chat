@@ -8,8 +8,15 @@ To run the project use these docker command inside the project root directory
 
 > **Run the server**
 
+Clone the project
+
 ```
 git clone https://github.com/Peguinm/websocket-chat-server.git
+```
+
+Run inside the project folder
+
+```
 docker build -t websocket-server .
 docker run --rm -p <port>:3000 --name websocket-server-container websocket-server
 
@@ -18,6 +25,8 @@ docker run --rm -p <port>:3000 --name websocket-server-container websocket-serve
 <br>
 
 > **optional for logging**
+
+Run inside project folder
 
 ```
 docker logs -f websocket-server-container 1> logs/logs.log &
