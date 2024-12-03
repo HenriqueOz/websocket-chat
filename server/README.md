@@ -6,7 +6,7 @@ To run the project use these docker command inside the project root directory
 
 <br>
 
-> **You must've docker desktop installed**
+> **Run the server**
 
 ```
 git clone https://github.com/Peguinm/websocket-chat-server.git
