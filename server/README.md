@@ -11,7 +11,7 @@ To run the project use these docker command inside the project root directory
 Clone the project
 
 ```
-git clone https://github.com/Peguinm/websocket-chat-server.git
+git clone https://github.com/henriqueoz/websocket-chat-server.git
 ```
 
 Run inside the project folder
