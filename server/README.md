@@ -35,6 +35,6 @@ docker logs -f websocket-server-container 1> logs/logs.log &
 
 <br>
 
-Chat client app in flutter: https://github.com/Peguinm/websocket-chat-app
+Chat client app in flutter: https://github.com/henriqueoz/websocket-chat-app
 
-Chat client terminal: https://github.com/Peguinm/websocket-chat-client
+Chat client terminal: https://github.com/henriqueoz/websocket-chat-client
