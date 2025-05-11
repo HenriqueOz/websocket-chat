@@ -1,0 +1,39 @@
+{
+    "home": {
+        "title": "WebsocketClient\nchat",
+        "subtitle": "A simple websocket chat app",
+        "serverFormDescription": "Edit the chat server address",
+        "drawerTitle": "Menu",
+        "drawerDarkMode": "Dark Mode",
+        "bottomTitle": "Pick a username to display in the chat",
+        "invalidIp": "Invalid IP address",
+        "invalidPort": "Invalid port",
+        "joinChatButton": "Join chat",
+        "ipFieldLabel": "IP",
+        "ipFieldHint": "ex: 192.168.0.1",
+        "portFieldLabel": "Port",
+        "portFieldHint": "ex: 8080",
+        "usernameFieldLabel": "Username",
+        "usernameFieldHint": "ex: GeorgeCurioso",
+        "exitModalTitle": "Exit App?",
+        "exitModalDescription": "The app will be closed"
+    },
+    "chat": {
+        "exitModalTitle": "Exit Chat?",
+        "exitModalDescription": "You will be disconnected from the chat room",
+        "connectionStatus": "Connection Status",
+        "messageInputHint": "Type your message",
+        "messageInputLabel": "Type your message",
+        "messagesLabel": "Messages"
+    },
+    "form": {
+        "minimunChars": "Field must have at least {0} characters",
+        "cantBeEmpty": "Field can't be empty",
+        "invalidForm": "Invalid form"
+    },
+    "label": {
+        "exit": "Exit",
+        "cancel": "Cancel",
+        "back": "Back"
+    }
+}
